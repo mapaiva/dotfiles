@@ -77,7 +77,7 @@ if has('nvim')
 endif
 
 " Clear search highlights
-map <leader>c :nohlsearch<cr>
+map <Esc> :nohlsearch<cr>
 
 " These mappings will make it so that going to the next one in a search will
 " center on the line it's found in.
@@ -130,6 +130,9 @@ nnoremap <leader>h :split<cr>
 
 " Closing splits
 nnoremap <leader>q :close<cr>
+
+" Deleting buffer
+nnoremap <leader>c :bd<cr>
 
 
 "----------------------------------------------
