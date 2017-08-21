@@ -17,3 +17,6 @@ export GOPATH=/home/mapaiva/go
 export GOROOT=/usr/local/go
 export PATH=/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/usr/local/go/bin:/home/mapaiva/go/bin
     
+# Aliases
+alias vim='nvim'
+
