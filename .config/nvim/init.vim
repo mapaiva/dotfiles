@@ -222,3 +222,11 @@ let g:go_auto_type_info = 1
 " Highlight variable uses
 let g:go_auto_sameids = 1
 
+
+"----------------------------------------------
+" Language: HCL
+"----------------------------------------------
+au FileType hcl set noexpandtab
+au FileType hcl set shiftwidth=2
+au FileType hcl set softtabstop=2
+au FileType hcl set tabstop=2
