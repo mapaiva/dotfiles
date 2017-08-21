@@ -11,6 +11,9 @@ Plug 'Shougo/deoplete.nvim', 	{ 'do': ':UpdateRemotePlugins' }
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'fatih/vim-hclfmt',	{ 'do': 'go get github.com/fatih/hclfmt' }
+Plug 'w0rp/ale'
+Plug 'vim-airline/vim-airline'
+Plug 'majutsushi/tagbar'
 
 " Language support
 Plug 'fatih/vim-go',		{ 'do': ':GoInstallBinaries' }
@@ -152,6 +155,32 @@ let g:deoplete#sources#go#pointer = 1
 
 
 "----------------------------------------------
+" Plugin: w0rp/ale
+"----------------------------------------------
+" Error and warning signs.
+let g:ale_sign_error = '⤫'
+let g:ale_sign_warning = '⚠'
+" Enable integration with airline.
+let g:airline#extensions#ale#enabled = 1
+
+
+"----------------------------------------------
+" Plugin: vim-airline/vim-airline 
+"----------------------------------------------
+" Show status bar by default.
+set laststatus=2
+
+" Enable top tabline.
+let g:airline#extensions#tabline#enabled = 1
+
+" Disable showing tabs in the tabline. This will ensure that the buffers are
+" what is shown in the tabline at all times.
+let g:airline#extensions#tabline#show_tabs = 0
+
+" Enable powerline fonts.
+let g:airline_powerline_fonts = 0
+
+"----------------------------------------------
 " Language: Golang
 "----------------------------------------------
 au FileType go set noexpandtab
@@ -176,9 +205,6 @@ au FileType go nmap <leader>gDv <Plug>(go-doc-vertical)
 
 " Run goimports when running gofmt
 let g:go_fmt_command = "goimports"
-
-" Set neosnippet as snippet engine
-let g:go_snippet_engine = "neosnippet"
 
 " Enable syntax highlighting per default
 let g:go_highlight_types = 1
