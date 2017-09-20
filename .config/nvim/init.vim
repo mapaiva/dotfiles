@@ -1,4 +1,4 @@
-"----------------------------------------------
+"---------------------------------------------
 " Plugin management
 "
 " Download vim-plug from the URL below and follow the installation
@@ -14,11 +14,13 @@ Plug 'fatih/vim-hclfmt',	{ 'do': 'go get github.com/fatih/hclfmt' }
 Plug 'w0rp/ale'
 Plug 'vim-airline/vim-airline'
 Plug 'majutsushi/tagbar'
+Plug 'zchee/deoplete-go', 	{ 'do': 'make'}
+Plug 'scrooloose/nerdtree'
 
 " Language support
 Plug 'fatih/vim-go',		{ 'do': ':GoInstallBinaries' }
-Plug 'zchee/deoplete-go', 	{ 'do': 'make'}
 Plug 'b4b4r07/vim-hcl'
+Plug 'cespare/vim-toml'
 
 " Color scheme
 Plug 'dracula/vim'
@@ -180,6 +182,17 @@ let g:airline#extensions#tabline#show_tabs = 0
 " Enable powerline fonts.
 let g:airline_powerline_fonts = 0
 
+
+"----------------------------------------------
+" Plugin: scrooloose/nerdtree
+"----------------------------------------------
+" Toggle nerdtree
+map <C-m> :NERDTreeToggle<CR>
+
+" Close vim when the last open window is NERDTree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+
 "----------------------------------------------
 " Language: Golang
 "----------------------------------------------
@@ -202,6 +215,7 @@ au FileType go nmap <leader>gdv <Plug>(go-def-vertical)
 au FileType go nmap <leader>gdh <Plug>(go-def-horizontal)
 au FileType go nmap <leader>gD <Plug>(go-doc)
 au FileType go nmap <leader>gDv <Plug>(go-doc-vertical)
+au FileType go nmap <leader>gtc :GoTestCompile<cr>
 
 " Run goimports when running gofmt
 let g:go_fmt_command = "goimports"
@@ -230,3 +244,30 @@ au FileType hcl set noexpandtab
 au FileType hcl set shiftwidth=2
 au FileType hcl set softtabstop=2
 au FileType hcl set tabstop=2
+
+
+"----------------------------------------------
+" Language: Javascript
+"----------------------------------------------
+"
+" In order to activate fully javascript linting
+" the following libs must to be installed globally
+"
+" ```
+" npm install -g eslint
+" npm install -g babel-eslint
+" npm install -g eslint-plugin-react
+" ```
+au FileType javascript set noexpandtab
+au FileType javascript set shiftwidth=2
+au FileType javascript set softtabstop=2
+au FileType javascript set tabstop=2
+
+
+"----------------------------------------------
+" Language: TOML
+"----------------------------------------------
+au FileType toml set expandtab
+au FileType toml set shiftwidth=2
+au FileType toml set softtabstop=2
+au FileType toml set tabstop=2
