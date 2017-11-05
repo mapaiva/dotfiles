@@ -16,6 +16,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'majutsushi/tagbar'
 Plug 'zchee/deoplete-go', 	{ 'do': 'make'}
 Plug 'scrooloose/nerdtree'
+Plug 'AndrewRadev/splitjoin.vim'
 
 " Language support
 Plug 'fatih/vim-go',		{ 'do': ':GoInstallBinaries' }
@@ -47,7 +48,7 @@ set noswapfile                    " disable swapfile usage
 set nowrap
 set noerrorbells                  " No bells!
 set novisualbell                  " I said, no bells!
-set number                        " show number ruler
+set number relativenumber         " show number ruler using the relative line number
 set ruler
 set formatoptions=tcqron          " set vims text formatting options
 set softtabstop=2
@@ -167,7 +168,7 @@ let g:airline#extensions#ale#enabled = 1
 
 
 "----------------------------------------------
-" Plugin: vim-airline/vim-airline 
+" Plugin: vim-airline/vim-airline
 "----------------------------------------------
 " Show status bar by default.
 set laststatus=2
@@ -271,3 +272,21 @@ au FileType toml set expandtab
 au FileType toml set shiftwidth=2
 au FileType toml set softtabstop=2
 au FileType toml set tabstop=2
+
+
+"----------------------------------------------
+" Language: YAML
+"----------------------------------------------
+au FileType yaml set expandtab
+au FileType yaml set shiftwidth=2
+au FileType yaml set softtabstop=2
+au FileType yaml set tabstop=2
+
+
+"----------------------------------------------
+" Language: CSS
+"----------------------------------------------
+au FileType css set noexpandtab
+au FileType css set shiftwidth=2
+au FileType css set softtabstop=2
+au FileType css set tabstop=2
