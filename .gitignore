@@ -1,0 +1,12 @@
+.config/
+.gvm/
+.local/
+.mozilla/
+.oh-my-zsh/
+.cache/
+
+Templates/
+
+.zsh*
+.gitconfig
+.bash_*
