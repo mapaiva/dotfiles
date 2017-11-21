@@ -4,8 +4,10 @@
 .mozilla/
 .oh-my-zsh/
 .cache/
+.boostnote/
 
 Templates/
+Projects/
 
 .zsh*
 .gitconfig
