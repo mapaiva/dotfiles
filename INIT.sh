@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+GOLANG_VERSION=1.9.2
+GITHUB_EMAIL=matheus.a.paiva@gmail.com
+
 # -------------------------------------------------------------------------------------------
 # Install GCC
 # -------------------------------------------------------------------------------------------
@@ -42,4 +45,10 @@ sudo yum -y install bison
 sudo yum -y install glibc-devel
 bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
 gvm install go1.4 -B && gvm use go1.4 --default
-gvm install go1.9.2 && gvm use go1.9.2 --default
+gvm install go$GOLANG_VERSION && gvm use go$GOLANG_VERSION --default
+
+# -------------------------------------------------------------------------------------------
+# Create GitHub SSH key
+# -------------------------------------------------------------------------------------------
+ssh-keygen -t rsa -b 4096 -C "$GITHUB_EMAIL"
+ssh-add ~/.ssh/id_rsa
