@@ -11,6 +11,4 @@ Templates/
 Projects/
 Downloads/
 
-.zsh*
-.gitconfig
-.bash*
+.*
