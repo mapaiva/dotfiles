@@ -53,7 +53,14 @@ gvm install go$GOLANG_VERSION && gvm use go$GOLANG_VERSION --default
 ssh-keygen -t rsa -b 4096 -C "$GITHUB_EMAIL"
 ssh-add ~/.ssh/id_rsa
 
+# -------------------------------------------------------------------------------------------
 # Install Docker
+# -------------------------------------------------------------------------------------------
 sudo dnf -y install dnf-plugins-core
 sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
 sudo dnf -y install docker-ce && sudo systemctl start docker
+
+# -------------------------------------------------------------------------------------------
+# Install Vagrant
+# -------------------------------------------------------------------------------------------
+sudo dnf -y install vagrant vagrant-libvirt
