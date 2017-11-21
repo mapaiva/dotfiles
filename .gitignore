@@ -5,10 +5,12 @@
 .oh-my-zsh/
 .cache/
 .boostnote/
+.ssh/
 
 Templates/
 Projects/
+Downloads/
 
 .zsh*
 .gitconfig
-.bash_*
+.bash*
