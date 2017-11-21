@@ -39,8 +39,7 @@ gsettings set org.gnome.settings-daemon.plugins.xsettings overrides "{'Gtk/Decor
 # Install gvm
 # -------------------------------------------------------------------------------------------
 sudo yum -y install bison
-sudo yum -y install gcc
 sudo yum -y install glibc-devel
 bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
-gvm install go1.4 && gvm use go1.4 --default
-
+gvm install go1.4 -B && gvm use go1.4 --default
+gvm install go1.9.2 && gvm use go1.9.2 --default
