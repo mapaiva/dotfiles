@@ -64,3 +64,11 @@ sudo dnf -y install docker-ce && sudo systemctl start docker
 # Install Vagrant
 # -------------------------------------------------------------------------------------------
 sudo dnf -y install vagrant vagrant-libvirt
+
+# -------------------------------------------------------------------------------------------
+# Install gnome-shell theme
+# -------------------------------------------------------------------------------------------
+git clone https://github.com/mapaiva/pie-gnome.git
+mv pie-gnome/Pie ~/.local/share/themes
+rm -fr pie-gnome
+
