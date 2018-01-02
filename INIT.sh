@@ -63,7 +63,7 @@ sudo dnf -y install docker-ce && sudo systemctl start docker
 # -------------------------------------------------------------------------------------------
 # Install Vagrant
 # -------------------------------------------------------------------------------------------
-sudo dnf -y install vagrant vagrant-libvirt
+# sudo dnf -y install vagrant vagrant-libvirt
 
 # -------------------------------------------------------------------------------------------
 # Install gnome-shell theme
