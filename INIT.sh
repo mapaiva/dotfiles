@@ -2,6 +2,8 @@
 
 GOLANG_VERSION=1.9.2
 GITHUB_EMAIL=matheus.a.paiva@gmail.com
+VIRTUAL_BOX_MAJOR_VERSION=5.2
+VIRTUAL_BOX_PATCH_VERSION=5.2.4
 
 # -------------------------------------------------------------------------------------------
 # Install GCC
@@ -63,7 +65,12 @@ sudo dnf -y install docker-ce && sudo systemctl start docker
 # -------------------------------------------------------------------------------------------
 # Install Vagrant
 # -------------------------------------------------------------------------------------------
-# sudo dnf -y install vagrant vagrant-libvirt
+sudo dnf -y install vagrant
+
+# -------------------------------------------------------------------------------------------
+# Install VirtualBox
+# -------------------------------------------------------------------------------------------
+sudo dnf -y install http://download.virtualbox.org/virtualbox/${VIRTUAL_BOX_PATCH_VERSION}/VirtualBox-${VIRTUAL_BOX_MAJOR_VERSION}-${VIRTUAL_BOX_PATCH_VERSION}_119785_fedora26-1.x86_64.rpm
 
 # -------------------------------------------------------------------------------------------
 # Install gnome-shell theme
