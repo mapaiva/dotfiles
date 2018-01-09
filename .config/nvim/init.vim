@@ -27,6 +27,8 @@ Plug 'tpope/vim-fireplace'
 " Color scheme
 Plug 'dracula/vim'
 
+Plug 'mhinz/vim-startify'
+
 call plug#end()
 
 
