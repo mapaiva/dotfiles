@@ -22,6 +22,7 @@ Plug 'AndrewRadev/splitjoin.vim'
 Plug 'fatih/vim-go',		{ 'do': ':GoInstallBinaries' }
 Plug 'b4b4r07/vim-hcl'
 Plug 'cespare/vim-toml'
+Plug 'tpope/vim-fireplace'
 
 " Color scheme
 Plug 'dracula/vim'
@@ -290,3 +291,12 @@ au FileType css set noexpandtab
 au FileType css set shiftwidth=2
 au FileType css set softtabstop=2
 au FileType css set tabstop=2
+
+
+"----------------------------------------------
+" Language: Clojure
+"----------------------------------------------
+au FileType clj set noexpandtab
+au FileType clj set shiftwidth=2
+au FileType clj set softtabstop=2
+au FileType clj set tabstop=2
