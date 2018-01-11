@@ -17,16 +17,20 @@ Plug 'majutsushi/tagbar'
 Plug 'zchee/deoplete-go', 	{ 'do': 'make'}
 Plug 'scrooloose/nerdtree'
 Plug 'AndrewRadev/splitjoin.vim'
+Plug 'kien/rainbow_parentheses.vim'
 
 " Language support
 Plug 'fatih/vim-go',		{ 'do': ':GoInstallBinaries' }
 Plug 'b4b4r07/vim-hcl'
 Plug 'cespare/vim-toml'
-Plug 'tpope/vim-fireplace'
+Plug 'tpope/vim-fireplace'        " Clojure
+Plug 'guns/vim-clojure-static'    " Clojure
+Plug 'guns/vim-clojure-highlight' " Clojure
 
 " Color scheme
 Plug 'dracula/vim'
 
+" Others
 Plug 'mhinz/vim-startify'
 
 call plug#end()
@@ -216,6 +220,31 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 
 
 "----------------------------------------------
+" Plugin: rainbow_parentheses.vim
+"----------------------------------------------
+let g:rbpt_colorpairs = [
+    \ ['brown',       'RoyalBlue3'],
+    \ ['Darkblue',    'SeaGreen3'],
+    \ ['darkgray',    'DarkOrchid3'],
+    \ ['darkgreen',   'firebrick3'],
+    \ ['darkcyan',    'RoyalBlue3'],
+    \ ['darkred',     'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['brown',       'firebrick3'],
+    \ ['gray',        'RoyalBlue3'],
+    \ ['black',       'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['Darkblue',    'firebrick3'],
+    \ ['darkgreen',   'RoyalBlue3'],
+    \ ['darkcyan',    'SeaGreen3'],
+    \ ['darkred',     'DarkOrchid3'],
+    \ ['red',         'firebrick3'],
+    \ ]
+let g:rbpt_max = 16
+let g:rbpt_loadcmd_toggle = 0
+
+
+"----------------------------------------------
 " Language: Golang
 "----------------------------------------------
 au FileType go set noexpandtab
@@ -320,3 +349,9 @@ au FileType clj set noexpandtab
 au FileType clj set shiftwidth=2
 au FileType clj set softtabstop=2
 au FileType clj set tabstop=2
+
+" Enable rainbow parentheses plugin on start up
+au BufEnter *.clj :RainbowParenthesesLoadRound
+au BufEnter *.clj :RainbowParenthesesLoadSquare
+au BufEnter *.clj :RainbowParenthesesLoadBraces
+au BufEnter *.clj :RainbowParenthesesToggle
