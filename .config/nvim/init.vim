@@ -18,14 +18,20 @@ Plug 'zchee/deoplete-go', 	{ 'do': 'make'}
 Plug 'scrooloose/nerdtree'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'kien/rainbow_parentheses.vim'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'ryanoasis/vim-devicons'
 
 " Language support
 Plug 'fatih/vim-go',		{ 'do': ':GoInstallBinaries' }
 Plug 'b4b4r07/vim-hcl'
 Plug 'cespare/vim-toml'
+Plug 'jelera/vim-javascript-syntax'
 Plug 'tpope/vim-fireplace'        " Clojure
 Plug 'guns/vim-clojure-static'    " Clojure
 Plug 'guns/vim-clojure-highlight' " Clojure
+Plug 'elixir-editors/vim-elixir'  " Elixir
+Plug 'slashmili/alchemist.vim'    " Elixir
+Plug 'mhinz/vim-mix-format'       " Elixir
 
 " Color scheme
 Plug 'dracula/vim'
@@ -48,7 +54,7 @@ set clipboard=unnamedplus
 set colorcolumn=100               " highlight the 100th column as an indicator
 set completeopt-=preview          " remove the horrendous preview window
 set cursorline                    " highlight the current line for the cursor
-set encoding=utf-8
+set encoding=UTF-8
 set expandtab                     " expands tabs to spaces
 set nospell                       " disable spelling
 set noswapfile                    " disable swapfile usage
@@ -64,13 +70,15 @@ set textwidth=100
 set title                         " let vim set the terminal title
 set updatetime=100                " redraw the status bar often
 
-" Color scheme
-color dracula
-
 " Enable mouse if possible
 if has('mouse')
     set mouse=a
 endif
+
+" Color scheme
+color dracula
+" Workaround to https://github.com/dracula/vim/issues/11
+set termguicolors
 
 " Allow vim to set a custom font or color for a word
 syntax enable
@@ -245,6 +253,12 @@ let g:rbpt_loadcmd_toggle = 0
 
 
 "----------------------------------------------
+" Plugin: mhinz/mix-format
+"----------------------------------------------
+let g:mix_format_on_save = 1
+
+
+"----------------------------------------------
 " Language: Golang
 "----------------------------------------------
 au FileType go set noexpandtab
@@ -324,6 +338,16 @@ au FileType toml set softtabstop=2
 au FileType toml set tabstop=2
 
 
+
+"----------------------------------------------
+" Language: Protobuf
+"----------------------------------------------
+au FileType proto set expandtab
+au FileType proto set shiftwidth=2
+au FileType proto set softtabstop=2
+au FileType proto set tabstop=2
+
+
 "----------------------------------------------
 " Language: YAML
 "----------------------------------------------
@@ -343,12 +367,40 @@ au FileType css set tabstop=2
 
 
 "----------------------------------------------
+" Language: JSON
+"----------------------------------------------
+au FileType json set noexpandtab
+au FileType json set shiftwidth=2
+au FileType json set softtabstop=2
+au FileType json set tabstop=2
+
+
+"----------------------------------------------
 " Language: Clojure
 "----------------------------------------------
 au FileType clj set noexpandtab
 au FileType clj set shiftwidth=2
 au FileType clj set softtabstop=2
 au FileType clj set tabstop=2
+
+
+"----------------------------------------------
+" Language: SQL
+"----------------------------------------------
+au FileType sql set noexpandtab
+au FileType sql set shiftwidth=2
+au FileType sql set softtabstop=2
+au FileType sql set tabstop=2
+
+
+"----------------------------------------------
+" Language: Elixir
+"----------------------------------------------
+au FileType elixir set noexpandtab
+au FileType elixir set shiftwidth=2
+au FileType elixir set softtabstop=2
+au FileType elixir set tabstop=2
+
 
 " Enable rainbow parentheses plugin on start up
 au BufEnter *.clj :RainbowParenthesesLoadRound
