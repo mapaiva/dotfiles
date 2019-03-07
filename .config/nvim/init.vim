@@ -20,6 +20,7 @@ Plug 'AndrewRadev/splitjoin.vim'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'ryanoasis/vim-devicons'
+Plug 'janko-m/vim-test'
 
 " Language support
 Plug 'fatih/vim-go',		{ 'do': ':GoInstallBinaries' }
@@ -32,6 +33,7 @@ Plug 'guns/vim-clojure-highlight' " Clojure
 Plug 'elixir-editors/vim-elixir'  " Elixir
 Plug 'slashmili/alchemist.vim'    " Elixir
 Plug 'mhinz/vim-mix-format'       " Elixir
+Plug 'vim-ruby/vim-ruby'          " Ruby
 
 " Color scheme
 Plug 'dracula/vim'
@@ -84,7 +86,8 @@ set termguicolors
 syntax enable
 
 " Set the leader button
-let mapleader = ','
+nnoremap <SPACE> <Nop>
+let mapleader = ' '
 
 
 "----------------------------------------------
@@ -117,7 +120,7 @@ noremap <Right> <NOP>
 
 " Move between buffers with Shift + arrow key...
 nnoremap <S-Left> :bprevious<cr>
-nnoremap <S-Right> :bnext<cr>
+nnoremap <Leader><Tab> :bnext<cr>
 
 " ... but skip the quickfix when navigating
 augroup qf
@@ -221,7 +224,7 @@ let g:airline_symbols.whitespace = 'Ξ'
 " Plugin: scrooloose/nerdtree
 "----------------------------------------------
 " Toggle nerdtree
-map <C-m> :NERDTreeToggle<CR>
+map <Leader>p :NERDTreeToggle<CR>
 
 " Close vim when the last open window is NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
@@ -256,6 +259,25 @@ let g:rbpt_loadcmd_toggle = 0
 " Plugin: mhinz/mix-format
 "----------------------------------------------
 let g:mix_format_on_save = 1
+
+
+"----------------------------------------------
+" Plugin: slashmili/alchemist.vim
+"----------------------------------------------
+let g:alchemist_tag_map = 'gd'
+
+
+"----------------------------------------------
+" Plugin: 'ctrlpvim/ctrlp.vim'
+"----------------------------------------------
+map <Leader>f :CtrlP<CR>
+
+
+"----------------------------------------------
+" Plugin: 'janko-m/vim-test'
+"----------------------------------------------
+map <Leader>tn :TestNearest<CR>
+map <Leader>tf :TestFile<CR>
 
 
 "----------------------------------------------
@@ -400,6 +422,14 @@ au FileType elixir set noexpandtab
 au FileType elixir set shiftwidth=2
 au FileType elixir set softtabstop=2
 au FileType elixir set tabstop=2
+
+
+"----------------------------------------------
+" Language: Ruby
+"----------------------------------------------
+au FileType ruby set shiftwidth=2
+au FileType ruby set softtabstop=2
+au FileType ruby set tabstop=2
 
 
 " Enable rainbow parentheses plugin on start up
