@@ -1,98 +1,80 @@
 #!/usr/bin/env bash
 
-GOLANG_VERSION=1.9.2
-GITHUB_EMAIL=matheus.a.paiva@gmail.com
-VIRTUAL_BOX_MAJOR_VERSION=5.2
-VIRTUAL_BOX_PATCH_VERSION=5.2.4
-VAGRANT_VERSION=2.0.1
+# sudo dnf install -y dnf-plugins-core
 
 # -------------------------------------------------------------------------------------------
-# Install GCC
+# Install Brave
 # -------------------------------------------------------------------------------------------
-sudo dnf install -y gcc gcc-c++
+sudo dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/x86_64/
+sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
+sudo dnf install -y brave-browser
 
 # -------------------------------------------------------------------------------------------
 # Install Neovim
 # -------------------------------------------------------------------------------------------
-sudo yum -y install epel-release
-curl -o /etc/yum.repos.d/dperson-neovim-epel-7.repo https://copr.fedorainfracloud.org/coprs/dperson/neovim/repo/epel-7/dperson-neovim-epel-7.repo
-sudo yum -y install neovim
-curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim # Install vim-plug
+sudo dnf install -y neovim python3-neovim
+# Install vim-plug
+curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+# Install custom config
+curl -fLo ~/.config/nvim/init.vim --create-dirs https://raw.githubusercontent.com/mapaiva/dotfiles/master/.config/nvim/init.vim
 
 # -------------------------------------------------------------------------------------------
 # Install ZSH
 # -------------------------------------------------------------------------------------------
-sudo yum -y install zsh
-sudo dnf -y install util-linux-user
-wget --no-check-certificate http://install.ohmyz.sh -O - | sh
-sudo chsh -s /usr/bin/zsh
-chsh -s /usr/bin/zsh
-curl -o - https://raw.githubusercontent.com/denysdovhan/spaceship-zsh-theme/master/install.zsh | zsh
+sudo dnf install -y zsh
+# Install Oh-my-zsh
+wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
 
 # -------------------------------------------------------------------------------------------
-# Install Tilix/Terminix
+# Install asdf
 # -------------------------------------------------------------------------------------------
-sudo dnf copr -y enable heikoada/terminix
-sudo dnf install -y terminix
-
-# -----------------------------------------------------------------------------	--------------
-# Set Gnome window's buttons to the left
-# -------------------------------------------------------------------------------------------
-gsettings set org.gnome.desktop.wm.preferences button-layout 'close,minimize,maximize:'
-gsettings set org.gnome.settings-daemon.plugins.xsettings overrides "{'Gtk/DecorationLayout':<'close,minimize,maximize:'>}"
+git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.7.7
+cd ~/.asdf
+git checkout "$(git describe --abbrev=0 --tags)"
+echo -e '\n. $HOME/.asdf/asdf.sh' >> ~/.zshrc
 
 # -------------------------------------------------------------------------------------------
-# Install gvm
+# Install tmux
 # -------------------------------------------------------------------------------------------
-sudo yum -y install bison
-sudo yum -y install glibc-devel
-bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
-gvm install go1.4 -B && gvm use go1.4 --default
-gvm install go$GOLANG_VERSION && gvm use go$GOLANG_VERSION --default
+sudo dnf -y install tmux
 
 # -------------------------------------------------------------------------------------------
-# Create GitHub SSH key
+# Install pass
 # -------------------------------------------------------------------------------------------
-ssh-keygen -t rsa -b 4096 -C "$GITHUB_EMAIL"
-ssh-add ~/.ssh/id_rsa
+sudo dnf -y install pass
 
 # -------------------------------------------------------------------------------------------
 # Install Docker
 # -------------------------------------------------------------------------------------------
-sudo dnf -y install dnf-plugins-core
 sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
-sudo dnf -y install docker-ce && sudo systemctl start docker
+sudo dnf install -y docker-ce docker-ce-cli containerd.io
 
 # -------------------------------------------------------------------------------------------
-# Install Vagrant
-# -------------------------------------------------------------------------------------------
-sudo dnf -y install https://releases.hashicorp.com/vagrant/${VAGRANT_VERSION}/vagrant_${VAGRANT_VERSION}_x86_64.rpm
-
-# -------------------------------------------------------------------------------------------
-# Install VirtualBox
-# -------------------------------------------------------------------------------------------
-sudo dnf -y install http://download.virtualbox.org/virtualbox/${VIRTUAL_BOX_PATCH_VERSION}/VirtualBox-${VIRTUAL_BOX_MAJOR_VERSION}-${VIRTUAL_BOX_PATCH_VERSION}_119785_fedora26-1.x86_64.rpm
-
-# -------------------------------------------------------------------------------------------
-# Install gnome-shell theme
-# -------------------------------------------------------------------------------------------
-git clone https://github.com/mapaiva/pie-gnome.git
-mv pie-gnome/Pie ~/.local/share/themes
-rm -fr pie-gnome
-
-# -------------------------------------------------------------------------------------------
-# Install VSCode
+# Install Visual Studio Code
 # -------------------------------------------------------------------------------------------
 sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
 sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
-dnf check-update
-sudo dnf install code
-
+sudo dnf check-update
+sudo dnf install -y code
 
 # -------------------------------------------------------------------------------------------
-# Some reminders
+# Post install
 # -------------------------------------------------------------------------------------------
-echo "Do not forget to install Slack"
-echo "Do not forget to install Skype"
-echo "Do not forget to install Google Chrome"
-echo "Do not forget to install Spotify"
+# Update dependencies
+sudo dnf -y update
+# Print manual steps
+echo "Now:"
+echo "
+# -------------------------------------------------------------------------------------------
+# Install languages
+# -------------------------------------------------------------------------------------------
+asdf plugin add golang
+asdf install golang 1.14
+asdf global golang 1.14
+asdf plugin add elixir
+asdf install elixir 1.10.2
+asdf global elixir 1.10.2
+# -------------------------------------------------------------------------------------------
+# Start Docker
+# -------------------------------------------------------------------------------------------
+sudo systemctl start docker"
