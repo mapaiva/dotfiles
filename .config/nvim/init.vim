@@ -7,29 +7,21 @@
 "----------------------------------------------
 call plug#begin('~/.local/share/nvim/plugged')
 
-Plug 'Shougo/deoplete.nvim', 	{ 'do': ':UpdateRemotePlugins' }
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tpope/vim-fugitive'
-Plug 'fatih/vim-hclfmt',	{ 'do': 'go get github.com/fatih/hclfmt' }
 Plug 'w0rp/ale'
 Plug 'vim-airline/vim-airline'
 Plug 'majutsushi/tagbar'
-Plug 'zchee/deoplete-go', 	{ 'do': 'make'}
 Plug 'scrooloose/nerdtree'
-Plug 'AndrewRadev/splitjoin.vim'
-Plug 'kien/rainbow_parentheses.vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'ryanoasis/vim-devicons'
 Plug 'janko-m/vim-test'
 
 " Language support
-Plug 'fatih/vim-go',		{ 'do': ':GoInstallBinaries' }
-Plug 'b4b4r07/vim-hcl'
+Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 Plug 'cespare/vim-toml'
 Plug 'jelera/vim-javascript-syntax'
-Plug 'tpope/vim-fireplace'        " Clojure
-Plug 'guns/vim-clojure-static'    " Clojure
-Plug 'guns/vim-clojure-highlight' " Clojure
 Plug 'elixir-editors/vim-elixir'  " Elixir
 Plug 'slashmili/alchemist.vim'    " Elixir
 Plug 'mhinz/vim-mix-format'       " Elixir
@@ -37,9 +29,6 @@ Plug 'vim-ruby/vim-ruby'          " Ruby
 
 " Color scheme
 Plug 'dracula/vim'
-
-" Others
-Plug 'mhinz/vim-startify'
 
 call plug#end()
 
@@ -169,13 +158,6 @@ endif
 
 
 "----------------------------------------------
-" Plugin: zchee/deoplete-go
-"----------------------------------------------
-" Enable completing of go pointers
-let g:deoplete#sources#go#pointer = 1
-
-
-"----------------------------------------------
 " Plugin: w0rp/ale
 "----------------------------------------------
 " Error and warning signs.
@@ -228,31 +210,6 @@ map <Leader>p :NERDTreeToggle<CR>
 
 " Close vim when the last open window is NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
-
-"----------------------------------------------
-" Plugin: rainbow_parentheses.vim
-"----------------------------------------------
-let g:rbpt_colorpairs = [
-    \ ['brown',       'RoyalBlue3'],
-    \ ['Darkblue',    'SeaGreen3'],
-    \ ['darkgray',    'DarkOrchid3'],
-    \ ['darkgreen',   'firebrick3'],
-    \ ['darkcyan',    'RoyalBlue3'],
-    \ ['darkred',     'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['brown',       'firebrick3'],
-    \ ['gray',        'RoyalBlue3'],
-    \ ['black',       'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['Darkblue',    'firebrick3'],
-    \ ['darkgreen',   'RoyalBlue3'],
-    \ ['darkcyan',    'SeaGreen3'],
-    \ ['darkred',     'DarkOrchid3'],
-    \ ['red',         'firebrick3'],
-    \ ]
-let g:rbpt_max = 16
-let g:rbpt_loadcmd_toggle = 0
 
 
 "----------------------------------------------
@@ -316,6 +273,7 @@ let g:go_highlight_structs = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 let g:go_highlight_extra_types = 1
+let g:go_version_warning = 0
 
 " Show type information
 let g:go_auto_type_info = 1
@@ -398,15 +356,6 @@ au FileType json set tabstop=2
 
 
 "----------------------------------------------
-" Language: Clojure
-"----------------------------------------------
-au FileType clj set noexpandtab
-au FileType clj set shiftwidth=2
-au FileType clj set softtabstop=2
-au FileType clj set tabstop=2
-
-
-"----------------------------------------------
 " Language: SQL
 "----------------------------------------------
 au FileType sql set noexpandtab
@@ -430,10 +379,3 @@ au FileType elixir set tabstop=2
 au FileType ruby set shiftwidth=2
 au FileType ruby set softtabstop=2
 au FileType ruby set tabstop=2
-
-
-" Enable rainbow parentheses plugin on start up
-au BufEnter *.clj :RainbowParenthesesLoadRound
-au BufEnter *.clj :RainbowParenthesesLoadSquare
-au BufEnter *.clj :RainbowParenthesesLoadBraces
-au BufEnter *.clj :RainbowParenthesesToggle
