@@ -1,8 +1,58 @@
-" Workaround to https://github.com/dracula/vim/issues/11
-set termguicolors
+set fileencoding=utf-8
+set fileencodings=utf-8
+
+
+"" Fix backspace indent
+set backspace=indent,eol,start
+
+"" Tabs. May be overridden by autocmd rules
+set tabstop=4
+set softtabstop=0
+set shiftwidth=4
+set expandtab
+
+"" Map leader to ,
+let mapleader=','
+
+"" Enable hidden buffers
+set hidden
+
+"" Searching
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+
+set fileformats=unix,dos,mac
+
+if exists('$SHELL')
+    set shell=$SHELL
+else
+    set shell=/bin/sh
+endif
+
+" session management
+let g:session_directory = "~/.config/nvim/session"
+let g:session_autoload = "no"
+let g:session_autosave = "no"
+let g:session_command_aliases = 1
+
+" Snippets for curly brackets
+inoremap {<cr> {<cr>}<c-o>O
+
+"*****************************************************************************
+"" Visual Settings
+"*****************************************************************************
+syntax on
+set ruler
+set number
+set relativenumber
+set colorcolumn=100
 
 let no_buffers_menu=1
-silent! colorscheme dracula
+let g:dracula_colorterm=0
+colorscheme dracula
+
 
 set mousemodel=popup
 set t_Co=256
@@ -20,7 +70,7 @@ else
   " IndentLine
   let g:indentLine_enabled = 1
   let g:indentLine_concealcursor = 0
-  let g:indentLine_char = '┆'
+  let g:indentLine_char = '‚îÜ'
   let g:indentLine_faster = 1
 
   
@@ -30,7 +80,10 @@ endif
 
 "" Disable the blinking cursor.
 set gcr=a:blinkon0
-set scrolloff=3
+
+au TermEnter * setlocal scrolloff=0
+au TermLeave * setlocal scrolloff=3
+
 
 "" Status bar
 set laststatus=2
@@ -85,6 +138,7 @@ let g:NERDTreeShowBookmarks=1
 let g:nerdtree_tabs_focus_on_files=1
 let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
 let g:NERDTreeWinSize = 50
+let NERDTreeShowHidden=1
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 nnoremap <silent> <F2> :NERDTreeFind<CR>
 nnoremap <silent> <F3> :NERDTreeToggle<CR>
@@ -278,6 +332,11 @@ nnoremap <Leader>o :.Gbrowse<CR>
 " elixir
 
 
+" erlang
+let erlang_folding = 1
+let erlang_show_errors = 1
+
+
 " go
 " vim-go
 " run :GoBuild or :GoTestCompile based on the go file
@@ -294,9 +353,12 @@ let g:go_list_type = "quickfix"
 let g:go_fmt_command = "goimports"
 let g:go_fmt_fail_silently = 1
 
+let g:go_auto_type_info = 1
+
 let g:go_highlight_types = 1
 let g:go_highlight_fields = 1
 let g:go_highlight_functions = 1
+let g:go_highlight_function_calls = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
@@ -328,7 +390,9 @@ augroup go
   au FileType go nmap <Leader>dv <Plug>(go-doc-vertical)
   au FileType go nmap <Leader>db <Plug>(go-doc-browser)
 
-  au FileType go nmap <leader>r  <Plug>(go-run)
+  " au FileType go nmap <leader>r  <Plug>(go-run)
+  au filetype go inoremap <buffer> . .<C-x><C-o>
+  au FileType go nmap <leader>r  <Plug>(go-rename)
   au FileType go nmap <leader>t  <Plug>(go-test)
   au FileType go nmap <Leader>gt <Plug>(go-coverage-toggle)
   au FileType go nmap <Leader>i <Plug>(go-info)
@@ -337,6 +401,7 @@ augroup go
   au FileType go nmap <leader>dr :GoDeclsDir<cr>
   au FileType go imap <C-g> <esc>:<C-u>GoDecls<cr>
   au FileType go imap <leader>dr <esc>:<C-u>GoDeclsDir<cr>
+  au FileType go nmap <F12> :GoImplements<cr>
   au FileType go nmap <leader>rb :<C-u>call <SID>build_go_files()<CR>
 
 augroup END
@@ -344,7 +409,6 @@ augroup END
 " ale
 :call extend(g:ale_linters, {
     \"go": ['golint', 'go vet'], })
-
 
 " html
 " for html files, 2 spaces
@@ -361,8 +425,8 @@ augroup vimrc-javascript
 augroup END
 
 
-" lua
-
+" typescript
+let g:yats_host_keyword = 1
 
 " python
 " vim-python
@@ -392,61 +456,11 @@ let g:jedi#smart_auto_mappings = 0
 let g:airline#extensions#virtualenv#enabled = 1
 
 " Syntax highlight
-" Default highlight is better than polyglot
-let g:polyglot_disabled = ['python']
 let python_highlight_all = 1
 
 
-" ruby
-let g:rubycomplete_buffer_loading = 1
-let g:rubycomplete_classes_in_global = 1
-let g:rubycomplete_rails = 1
 
-augroup vimrc-ruby
-  autocmd!
-  autocmd BufNewFile,BufRead *.rb,*.rbw,*.gemspec setlocal filetype=ruby
-  autocmd FileType ruby set tabstop=2|set shiftwidth=2|set expandtab softtabstop=2
-augroup END
-
-let g:tagbar_type_ruby = {
-    \ 'kinds' : [
-        \ 'm:modules',
-        \ 'c:classes',
-        \ 'd:describes',
-        \ 'C:contexts',
-        \ 'f:methods',
-        \ 'F:singleton methods'
-    \ ]
-\ }
-
-" RSpec.vim mappings
-map <Leader>t :call RunCurrentSpecFile()<CR>
-map <Leader>s :call RunNearestSpec()<CR>
-map <Leader>l :call RunLastSpec()<CR>
-map <Leader>a :call RunAllSpecs()<CR>
-
-" For ruby refactory
-if has('nvim')
-  runtime! macros/matchit.vim
-else
-  packadd! matchit
-endif
-
-" Ruby refactory
-nnoremap <leader>rap  :RAddParameter<cr>
-nnoremap <leader>rcpc :RConvertPostConditional<cr>
-nnoremap <leader>rel  :RExtractLet<cr>
-vnoremap <leader>rec  :RExtractConstant<cr>
-vnoremap <leader>relv :RExtractLocalVariable<cr>
-nnoremap <leader>rit  :RInlineTemp<cr>
-vnoremap <leader>rrlv :RRenameLocalVariable<cr>
-vnoremap <leader>rriv :RRenameInstanceVariable<cr>
-vnoremap <leader>rem  :RExtractMethod<cr>
-
-
-" typescript
-let g:yats_host_keyword = 1
-
+" 
 
 
 "*****************************************************************************
@@ -469,30 +483,36 @@ endif
 if !exists('g:airline_powerline_fonts')
   let g:airline#extensions#tabline#left_sep = ' '
   let g:airline#extensions#tabline#left_alt_sep = '|'
-  let g:airline_left_sep          = '▶'
-  let g:airline_left_alt_sep      = '»'
-  let g:airline_right_sep         = '◀'
-  let g:airline_right_alt_sep     = '«'
-  let g:airline#extensions#branch#prefix     = '⤴' "➔, ➥, ⎇
-  let g:airline#extensions#readonly#symbol   = '⊘'
-  let g:airline#extensions#linecolumn#prefix = '¶'
-  let g:airline#extensions#paste#symbol      = 'ρ'
-  let g:airline_symbols.linenr    = '␊'
-  let g:airline_symbols.branch    = '⎇'
-  let g:airline_symbols.paste     = 'ρ'
-  let g:airline_symbols.paste     = 'Þ'
-  let g:airline_symbols.paste     = '∥'
-  let g:airline_symbols.whitespace = 'Ξ'
+  let g:airline_left_sep          = '‚ñ∂'
+  let g:airline_left_alt_sep      = '¬ª'
+  let g:airline_right_sep         = '‚óÄ'
+  let g:airline_right_alt_sep     = '¬´'
+  let g:airline#extensions#branch#prefix     = '‚§¥' "‚ûî, ‚û•, ‚éá
+  let g:airline#extensions#readonly#symbol   = '‚äò'
+  let g:airline#extensions#linecolumn#prefix = '¬∂'
+  let g:airline#extensions#paste#symbol      = 'œÅ'
+  let g:airline_symbols.linenr    = '‚êä'
+  let g:airline_symbols.branch    = '‚éá'
+  let g:airline_symbols.paste     = 'œÅ'
+  let g:airline_symbols.paste     = '√û'
+  let g:airline_symbols.paste     = '‚à•'
+  let g:airline_symbols.whitespace = 'Œû'
 else
-  let g:airline#extensions#tabline#left_sep = ''
-  let g:airline#extensions#tabline#left_alt_sep = ''
+  let g:airline#extensions#tabline#left_sep = 'ÓÇ∞'
+  let g:airline#extensions#tabline#left_alt_sep = 'ÓÇ±'
 
   " powerline symbols
-  let g:airline_left_sep = ''
-  let g:airline_left_alt_sep = ''
-  let g:airline_right_sep = ''
-  let g:airline_right_alt_sep = ''
-  let g:airline_symbols.branch = ''
-  let g:airline_symbols.readonly = ''
-  let g:airline_symbols.linenr = ''
+  let g:airline_left_sep = 'ÓÇ∞'
+  let g:airline_left_alt_sep = 'ÓÇ±'
+  let g:airline_right_sep = 'ÓÇ≤'
+  let g:airline_right_alt_sep = 'ÓÇ≥'
+  let g:airline_symbols.branch = 'ÓÇ†'
+  let g:airline_symbols.readonly = 'ÓÇ¢'
+  let g:airline_symbols.linenr = 'ÓÇ°'
 endif
+
+" yaml
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+
+" disable old regexp engine
+set re=0
